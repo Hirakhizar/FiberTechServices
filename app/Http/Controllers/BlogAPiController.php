@@ -12,7 +12,7 @@ class BlogAPiController extends Controller
         return response()->json(Blog::all(), 200);
     }
 
-    // Get a single blog by ID
+    
     public function show($id)
     {
         $blog = Blog::find($id);
@@ -34,5 +34,6 @@ class BlogAPiController extends Controller
 
     return response()->json($blogs, 200);
 }
+
 
 }
