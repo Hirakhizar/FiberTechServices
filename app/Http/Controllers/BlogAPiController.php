@@ -25,7 +25,7 @@ class BlogAPiController extends Controller
     }
    public function latest()
 {
-    dd('testing');
+
     $blogs = Blog::orderBy('created_at', 'desc')->get();
 
     if ($blogs->isEmpty()) {
