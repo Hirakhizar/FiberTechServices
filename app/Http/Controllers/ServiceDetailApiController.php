@@ -9,7 +9,7 @@ class ServiceDetailApiController extends Controller
 {
     public function index()
     {
-        $serviceDetails = ServiceDetail::with('service')->get();
+        $serviceDetails = ServiceDetail::with(['service.keyPoints'])->get();
 
         if ($serviceDetails->isEmpty()) {
             return response()->json(['error' => 'No service details found'], 404);
@@ -20,13 +20,14 @@ class ServiceDetailApiController extends Controller
 
    
     public function show($id)
-    {
-        $serviceDetail = ServiceDetail::with('service')->find($id);
+{
+    
+    $serviceDetail = ServiceDetail::with(['service.keyPoints'])->find($id);
 
-        if (!$serviceDetail) {
-            return response()->json(['error' => 'Service detail not found'], 404);
-        }
-
-        return response()->json($serviceDetail, 200);
+    if (!$serviceDetail) {
+        return response()->json(['error' => 'Service detail not found'], 404);
     }
+
+    return response()->json($serviceDetail, 200);
+}
 }

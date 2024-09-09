@@ -19,19 +19,18 @@ Route::prefix('blogs')->group(function () {
     Route::get('/', [BlogAPiController::class, 'index']);
 });
  Route::prefix('services')->group(function () {
-    
-    Route::prefix('service-detail')->group(function (){
-        Route::get('/{id}', [ServiceDetailApiController::class, 'show']);
-        Route::get('/', [ServiceDetailApiController::class, 'index']);
-        
-    });
-    Route::prefix('service-key-points')->group(function (){
-        Route::get('/', [ServiceKeyPointsApiController::class, 'index']);
-Route::get('/{id}', [ServiceKeyPointsApiController::class, 'show']);
-    });
     Route::get('/{id}', [ServiceApiController::class, 'show']);
     Route::get('/', [ServiceApiController::class, 'index']);
 
  });
-
- Route::get('/projects',[ServiceApiController::class,'getProjects']);
+ Route::prefix('service-key-points')->group(function (){
+    Route::get('/', [ServiceKeyPointsApiController::class, 'index']);
+Route::get('/{id}', [ServiceKeyPointsApiController::class, 'show']);
+});
+Route::get('/projects',[ServiceApiController::class,'getProjects']);
+ Route::prefix('service-detail')->group(function (){
+    Route::get('/{id}', [ServiceDetailApiController::class, 'show']);
+    Route::get('/', [ServiceDetailApiController::class, 'index']);
+    
+});
+ 

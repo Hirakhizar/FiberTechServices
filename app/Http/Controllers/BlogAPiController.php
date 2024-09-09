@@ -9,7 +9,13 @@ class BlogAPiController extends Controller
 {
     public function index()
     {
-        return response()->json(Blog::all(), 200);
+        $blogs = Blog::select('id','image', 'description')->get();
+    
+        if ($blogs->isEmpty()) {
+            return response()->json(['error' => 'No blogs found'], 404);
+        }
+    
+        return response()->json($blogs, 200);
     }
 
     
@@ -23,10 +29,12 @@ class BlogAPiController extends Controller
             return response()->json(['error' => 'Blog not found'], 404);
         }
     }
+
+
    public function latest()
 {
 
-    $blogs = Blog::orderBy('created_at', 'desc')->take(9)->get();
+    $blogs = Blog::select('id','image', 'description','created_at')->orderBy('created_at', 'desc')->take(9)->get();
 
     if ($blogs->isEmpty()) {
         return response()->json(['error' => 'No blogs found'], 404);
@@ -34,6 +42,5 @@ class BlogAPiController extends Controller
 
     return response()->json($blogs, 200);
 }
-
 
 }
