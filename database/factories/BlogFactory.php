@@ -11,6 +11,7 @@ class BlogFactory extends Factory
     {
         return [
             'image' => $this->faker->imageUrl(),
+            'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'details' => $this->faker->paragraph,
         ];
