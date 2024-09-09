@@ -26,4 +26,26 @@ public function show($id)
     }
     return response()->json($service, 200);
 }
+ 
+public function getProjects()
+{
+    $projects = Service::distinct('name')
+    ->get()
+    ->map(function ($item) {
+        return [
+            'name' => $item->name,
+            'icon' => Service::where('name', $item->name)->first()->icon
+        ];
+    });
+       
+
+    if ($projects->isEmpty()) {
+        return response()->json(['error' => 'No projects found'], 404);
+    }
+
+    return response()->json($projects, 200);
+}
+
+
+
 }

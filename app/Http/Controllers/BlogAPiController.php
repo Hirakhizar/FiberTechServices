@@ -26,7 +26,7 @@ class BlogAPiController extends Controller
    public function latest()
 {
 
-    $blogs = Blog::orderBy('created_at', 'desc')->get();
+    $blogs = Blog::orderBy('created_at', 'desc')->take(9)->get();
 
     if ($blogs->isEmpty()) {
         return response()->json(['error' => 'No blogs found'], 404);
