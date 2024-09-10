@@ -20,13 +20,14 @@ class QuoteApiController extends Controller
             'message' => $request->input('message'),
         ];
     
-        Mail::to('hirakhizarkhizarhayat@gmail.com')->send(new QuoteRequestEmail($data));
+        Mail::to($data['email'])->send(new QuoteRequestEmail($data));
     
  
     return response()->json([
         'message' => 'Email sent successfully to ' . $data['email']
     ], 200);
 }
+
 
 }
         
