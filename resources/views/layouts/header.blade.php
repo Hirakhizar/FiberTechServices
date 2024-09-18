@@ -24,7 +24,9 @@
   <link href="{{ asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+  {{-- <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet"> --}}
+  <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">

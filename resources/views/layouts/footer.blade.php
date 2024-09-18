@@ -1,7 +1,6 @@
  <!-- ======= Footer ======= -->
  <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
@@ -19,7 +18,13 @@
   <script src="{{ asset('assets/vendor/chart.js/chart.umd.js')}}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/quill/quill.js')}}"></script>
-  <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+  {{-- <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
 

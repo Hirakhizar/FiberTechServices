@@ -20,18 +20,33 @@ class BlogController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function blogForm()
     {
-        //
+        return view('blogForm');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function addBlog(Request $request)
     {
-        //
-        
+        $request->validate([
+            'image' => 'nullable|image',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'details' => 'required|string',
+        ]);
+        $imagePath = $request->file('image')->store('blogImages', 'public');
+        Blog::create([
+            'image' => $imagePath,
+            'title' => $request->title,
+            'description' => $request->description,
+            'details' => $request->details,
+        ]);
+
+        return redirect()->route('blog')->with('success', 'Blog created successfully.');
+ 
+
     }
 
     /**
@@ -46,17 +61,54 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editForm(string $id)
     {
-        //
+
+        $blog=Blog::findOrFail($id);
+        return view('editForm' ,compact('blog'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateBlog(Request $request, $id)
     {
-        //
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'details' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Find the blog by ID
+        $blog = Blog::findOrFail($id);
+
+        // Handle the file upload, if there is a new image
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($blog->image && \Storage::exists('public/' . $blog->image)) {
+                \Storage::delete('public/' . $blog->image);
+            }
+
+            // Store the new image and get the path
+            $imagePath = $request->file('image')->store('blogImages', 'public');
+
+            // Update the blog's image path
+            $blog->image = $imagePath;
+        }
+
+        // Update the blog with the validated data
+        $blog->title = $validatedData['title'];
+        $blog->description = $validatedData['description'];
+        $blog->details = $validatedData['details'];
+
+        // Save the changes to the database
+        $blog->save();
+
+        // Redirect to the blog list or show page with a success message
+        return redirect()->route('blog')->with('success', 'Blog updated successfully.');
     }
 
     /**

@@ -23,11 +23,21 @@
           <span>Blog</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Forms</span>
+        <a class="nav-link collapsed" href="{{ route('categories') }}">
+          <i class="bi bi-card-list"></i>
+          <span>Categories</span>
         </a>
-      </li><!-- End Forms Nav -->
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('showServices') }}">
+          <i class="bi bi-card-list"></i>
+          <span>Services</span>
+        </a>
+      </li>
+      <!-- End Forms Nav -->
 
       {{-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">

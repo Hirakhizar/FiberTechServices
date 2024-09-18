@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogAPiController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ServiceApiController;
 use App\Http\Controllers\ServiceDetailApiController;
 use App\Http\Controllers\ServiceKeyPointsApiController;
@@ -14,22 +15,14 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('blogs')->group(function () {
     Route::get('/latest', [BlogAPiController::class, 'latest']);
-    Route::get('/{id}', [BlogAPiController::class, 'show']);
-    Route::get('/', [BlogAPiController::class, 'index']);
+    Route::get('/blog-details/{id}', [BlogAPiController::class, 'show']);
+    Route::get('/list', [BlogAPiController::class, 'index']);
 });
- Route::prefix('services')->group(function () {
-    
-    Route::prefix('service-detail')->group(function (){
-        Route::get('/{id}', [ServiceDetailApiController::class, 'show']);
-        Route::get('/', [ServiceDetailApiController::class, 'index']);
-        
+ Route::prefix('service')->group(function () {
+    Route::get('/list', [ServiceDetailApiController::class, 'services']);
+    Route::get('/details/{id}', [ServiceDetailApiController::class, 'show']);
+    Route::get('/', [ServiceDetailApiController::class, 'index']);
     });
-    Route::prefix('service-key-points')->group(function (){
-        Route::get('/', [ServiceKeyPointsApiController::class, 'index']);
-Route::get('/{id}', [ServiceKeyPointsApiController::class, 'show']);
-    });
-    Route::get('/{id}', [ServiceApiController::class, 'show']);
-    Route::get('/', [ServiceApiController::class, 'index']);
 
- });
-  
+    Route::post('/serviceQuoteMail', [MailController::class, 'serviceQuoteMail']);
+

@@ -4,15 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-
-    "content-hash": "eba04bbb24b3180d2a6614993a886c4b",
-
-    
+    "content-hash": "4d7e23f47eb022ad4f2d3a4a0bc5c943",
     "packages": [
         {
             "name": "brick/math",
             "version": "0.12.1",
-            "source": { 
+            "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
                 "reference": "f510c0a40911935b77b86859eb5223d58d660df1"

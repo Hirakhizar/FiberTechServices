@@ -8,15 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'icon'];
-    
+
     public function keyPoints()
     {
-        return $this->hasMany(ServiceKeyPoint::class);
+        return $this->hasMany(ServiceKeyPoint::class,'service_id');
     }
 
     public function details()
     {
-        return $this->hasOne(ServiceDetail::class);
+        return $this->hasMany(ServiceDetail::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
