@@ -4,15 +4,16 @@
     <title>Service Inquiry</title>
 </head>
 <body>
-    <h1>Thank You, {{ $data['first_name'] }} {{ $data['last_name'] }}!</h1>
-    <p>We received your inquiry with the following details:</p>
+    <h1>New Service Inquiry</h1>
+    <p>You have received a new inquiry with the following details:</p>
 
     <ul>
+        <li>Name: {{ $data['first_name'] }} {{ $data['last_name'] }}</li>
         <li>Email: {{ $data['email'] }}</li>
         <li>Phone: {{ $data['phone'] }}</li>
         <li>Message: {{ $data['message'] }}</li>
     </ul>
 
-    <p>We will get back to you soon!</p>
+    <p>Please follow up with the customer as soon as possible.</p>
 </body>
 </html>
