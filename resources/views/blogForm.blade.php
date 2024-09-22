@@ -80,6 +80,21 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                  <label for="meta_title" class="form-label">Meta Title</label>
+                  <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ old('meta_title')}}" required>
+                  @error('meta_title')
+                      <div class="text-danger">{{ $message }}</div>
+                  @enderror
+              </div>
+
+              <div class="mb-3">
+                  <label for="meta_description" class="form-label">Meta Description</label>
+                  <textarea class="form-control" id="meta_description" name="meta_description" rows="2" required>{{ old('meta_description') }}</textarea>
+                  @error('meta_description')
+                      <div class="text-danger">{{ $message }}</div>
+                  @enderror
+              </div>
                 <div class="row mb-3"  style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                 </div>

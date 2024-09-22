@@ -38,44 +38,55 @@ class ServiceController extends Controller
     {
         $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
         DB::beginTransaction();
-        try{
-        $service = new Service();
-        $service->title = $request->input('name');
-        $service->thumbnail = $thumbnailPath;
-        $service->category_id = $request->input('category_id');
-        $service->save();
-        if ($request->has('section_contents')) {
-            foreach ($request->input('section_contents') as $index => $content) {
-                $details = new ServiceDetail();
-                if ($request->hasFile('section_images.' . $index)) {
-                    $sectionImagePath = $request->file('section_images.' . $index)->store('section_images', 'public');
-                    $details->image = $sectionImagePath;
+        try {
+            $service = new Service();
+            $service->title = $request->input('name');
+            $service->thumbnail = $thumbnailPath;
+            $service->category_id = $request->input('category_id');
+    
+            // Prepare SEO data
+            $seoData = [
+                'meta_title' => $request->input('meta_title'),
+                'meta_description' => $request->input('meta_description'),
+            ];
+    
+            // Encode SEO data into JSON format
+            $service->seo = json_encode($seoData);
+    
+            $service->save();
+    
+            if ($request->has('section_contents')) {
+                foreach ($request->input('section_contents') as $index => $content) {
+                    $details = new ServiceDetail();
+                    if ($request->hasFile('section_images.' . $index)) {
+                        $sectionImagePath = $request->file('section_images.' . $index)->store('section_images', 'public');
+                        $details->image = $sectionImagePath;
+                    }
+                    $details->service_description = $content;
+                    $details->service_id = $service->id;
+                    $details->save();
                 }
-                $details->service_description = $content;
-                $details->service_id = $service->id;
-                $details->save();
             }
+    
+            if ($request->has('data')) {
+                foreach ($request->input('data') as $data) {
+                    $keyPoints = new ServiceKeyPoint();
+                    $keyPoints->key_points = $data;
+                    $keyPoints->service_id = $service->id;
+                    $keyPoints->save();
+                }
+            }
+    
+            DB::commit();
+            return redirect()->route('showServices');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Log the error message if needed
+            // \Log::error('Error storing service: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add service. Please try again.');
         }
-
-        if ($request->has('data')) {
-            foreach ($request->input('data') as $data) {
-                $textDetails=$data;
-                $keyPoints= new ServiceKeyPoint();
-                $keyPoints->key_points=$textDetails;
-                $keyPoints->service_id = $service->id;
-                $keyPoints->save();
-             }
-        }
-DB::commit();
- return redirect()->route('showServices');
-    }catch(\Exception $e){
-     DB::rollBack();
-     return $e->getMessage();
-    //  \Log::error('Error storing service: ' . $e->getMessage());
-    //  return redirect()->back()->with('error', 'Failed to add service. Please try again.');
     }
-
-    }
+    
 
     /**
      * Display the specified resource.
@@ -112,14 +123,16 @@ DB::commit();
               'section_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
               'section_contents.*' => 'required|string',
               'data.*' => 'required|string',
+              'meta_title' => 'required|string|max:255',
+              'meta_description' => 'required|string|max:500',
           ]);
-
+      
           $service = Service::findOrFail($id);
-
+      
           // Update service details
           $service->title = $request->input('name');
           $service->category_id = $request->input('category_id');
-
+      
           // Handle thumbnail upload
           if ($request->hasFile('thumbnail')) {
               // Delete old thumbnail if exists
@@ -128,8 +141,16 @@ DB::commit();
               }
               $service->thumbnail = $request->file('thumbnail')->store('thumbnails', 'public');
           }
+      
+          // Handle SEO fields
+          $seoData = [
+              'meta_title' => $request->input('meta_title'),
+              'meta_description' => $request->input('meta_description')
+          ];
+          $service->seo = json_encode($seoData);
+      
           $service->save();
-
+      
           // Handle service details (sections)
           if ($request->has('section_contents')) {
               foreach ($request->section_ids as $index => $sectionId) {
@@ -141,11 +162,11 @@ DB::commit();
                       }
                       $section->image = $request->file('section_images.' . $index)->store('section_images', 'public');
                   }
-
+      
                   $section->save();
               }
           }
-
+      
           // Handle key points (data)
           if ($request->has('data')) {
               foreach ($request->data as $index => $keyPointContent) {
@@ -154,9 +175,10 @@ DB::commit();
                   $keyPoint->save();
               }
           }
-
+      
           return redirect()->route('showServices')->with('success', 'Service updated successfully!');
       }
+      
 
       public function delete($id){
         $service=Service::find($id);

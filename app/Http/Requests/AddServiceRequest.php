@@ -27,6 +27,8 @@ class AddServiceRequest extends FormRequest
                 'category_id' => 'required|exists:categories,id',
                 'section_images.*' => 'required|image|mimes:jpg,jpeg,png|max:2048',
                 'section_contents.*' => 'required|string',
+                'meta_title' =>'required|string',
+                'meta_description' =>'required|string',
                 'data.*' => 'nullable|string',
         ];
     }

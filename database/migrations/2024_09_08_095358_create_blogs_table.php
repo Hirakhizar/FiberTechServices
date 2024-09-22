@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('details');
+            $table->json('seo')->nullable();
             $table->timestamps();
         });
     }

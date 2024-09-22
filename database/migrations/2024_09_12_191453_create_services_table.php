@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('title');
-            $table->string('thumbnail');
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamps();
+    $table->unsignedBigInteger('category_id');
+    $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict')->onUpdate('cascade');
+    $table->string('title');
+    $table->string('thumbnail');
+    $table->enum('status', ['active', 'inactive'])->default('active');
+    $table->json('seo')->nullable(); // Add this line for the SEO column
+    $table->timestamps();
         });
     }
 
