@@ -23,7 +23,7 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('/show/{id}', 'show')->name('blogDetails');
     Route::get('/blogForm', 'blogForm')->name('blogForm');
     Route::post('/addBlog', 'addBlog')->name('addBlog');
-    Route::post('/edit/{id}', 'editForm')->name('blogEdit');
+    Route::get('/edit-blog/{id}', 'editForm')->name('blogEdit');
     Route::post('/updateBlog/{id}', 'updateBlog')->name('updateBlog');
 
 });

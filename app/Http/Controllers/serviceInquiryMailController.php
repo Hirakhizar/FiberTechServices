@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class serviceInquiryMailController extends Controller
 {
-  
+
     public function sendEmail(Request $request)
     {
         $data = [
@@ -21,10 +21,10 @@ class serviceInquiryMailController extends Controller
             'phone' => $request->input('phone'),
             'message' => $request->input('message'),
         ];
-    
+
         Mail::to('ashabbar439@gmail.com')->send(new ServiceInquiryMail($data));
-    
- 
+
+
     return response()->json([
         'message' => 'Email sent successfully  '
     ], 200);
@@ -52,7 +52,7 @@ public function getQuote(Request $request){
         ];
 
         // Send email to admin
-        Mail::to('hirakhizarkhizarhayat@gmail.com')->send(new QuoteRequestedMail($emailData));
+        Mail::to('ashabbar439@gmail.com')->send(new QuoteRequestedMail($emailData));
 
         return response()->json(['message' => 'Quote request sent successfully.'], 200);
     }
