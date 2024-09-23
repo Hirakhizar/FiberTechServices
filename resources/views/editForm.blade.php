@@ -88,7 +88,13 @@
                   @endphp
 
 
+          </div>
+        </div>
+<div class="col-lg-12 col-sm-6">
 
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Edit Blog</h5>
                 <div class="mb-3">
                   <label for="meta_title" class="form-label">Meta Title</label>
                   <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ old('meta_title', $seoData->meta_title ?? '') }}" required>
@@ -104,6 +110,8 @@
                       <div class="text-danger">{{ $message }}</div>
                   @enderror
               </div>
+            </div>
+        </div>
 
                 <div class="row mb-3"  style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary">Update Blog</button>
@@ -111,8 +119,7 @@
 
               </form><!-- End General Form Elements -->
 
-            </div>
-          </div>
+            
 
         </div>
 

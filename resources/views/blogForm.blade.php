@@ -80,7 +80,17 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+
+                      </div>
+                    </div>
+
+
+                <div class="col-lg-12 col-sm-6">
+
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Add Meta Data</h5>
+                <div class="mb-3 ">
                   <label for="meta_title" class="form-label">Meta Title</label>
                   <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ old('meta_title')}}" required>
                   @error('meta_title')
@@ -95,14 +105,15 @@
                       <div class="text-danger">{{ $message }}</div>
                   @enderror
               </div>
+            </div>
+        </div>
+        
                 <div class="row mb-3"  style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                 </div>
 
               </form><!-- End General Form Elements -->
 
-            </div>
-          </div>
 
         </div>
 

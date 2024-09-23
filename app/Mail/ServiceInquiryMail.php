@@ -9,7 +9,7 @@ class ServiceInquiryMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    
+
     public $data;
      /**
       * Create a new message instance.
@@ -20,9 +20,10 @@ class ServiceInquiryMail extends Mailable
      {
          $this->data = $data;
      }
-     
+
      public function build()
      {
+
          return $this->view('emails.service_inquiry', $this->data);
      }
 }

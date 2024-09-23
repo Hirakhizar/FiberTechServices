@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InquiryMailRequest;
 use App\Mail\QuoteRequestedMail;
 use App\Mail\ServiceInquiryMail;
 use App\Models\Blog;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 class serviceInquiryMailController extends Controller
 {
 
-    public function sendEmail(Request $request)
+    public function sendEmail(InquiryMailRequest $request)
     {
         $data = [
             'first_name' => $request->input('first_name'),
@@ -21,8 +22,7 @@ class serviceInquiryMailController extends Controller
             'phone' => $request->input('phone'),
             'message' => $request->input('message'),
         ];
-
-        Mail::to('ashabbar439@gmail.com')->send(new ServiceInquiryMail($data));
+        Mail::to('ashabbar411@gmail.com')->send(new ServiceInquiryMail($data));
 
 
     return response()->json([
@@ -31,6 +31,7 @@ class serviceInquiryMailController extends Controller
 }
 public function getQuote(Request $request){
     {
+
         // Validate request
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',

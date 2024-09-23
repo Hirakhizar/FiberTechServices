@@ -145,41 +145,8 @@
                         </div><!-- End Add Section Card -->
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-lg-12 col-sm-6">
-                        <!-- Card for Meta Information -->
-                        @php
-                        $seoData = json_decode($service->seo);
-                            @endphp
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Meta Information</h5>
-                
-                                <div class="form-group mb-3">
-                                    <label for="metaTitle">Meta Title:</label>
-                                    <input type="text" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" id="metaTitle" placeholder=" Meta Title" value="{{ old('meta_title', $seoData->meta_title ?? '') }}" required>
-                                    @error('meta_title')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                
-                                <div class="form-group mb-3">
-                                    <label for="metaDescription">Meta Description:</label>
-                                    <textarea class="form-control @error('meta_description') is-invalid @enderror" name="meta_description" id="metaDescription" rows="3" placeholder="Meta Description">{{ old('meta_description', $seoData->meta_description ?? '') }}</textarea>
-                                    @error('meta_description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                
-                            </div>
-                        </div><!-- End Meta Information Card -->
-                    </div>
-                </div>
-                
+
+
                 <div class="row">
                     <div class="col-lg-12 col-sm-6 mt-4">
                         <!-- Card for adding data -->
@@ -215,6 +182,41 @@
                     </div>
                 </div>
 
+
+                <div class="row mt-4">
+                    <div class="col-lg-12 col-sm-6">
+                        <!-- Card for Meta Information -->
+                        @php
+                        $seoData = json_decode($service->seo);
+                            @endphp
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Meta Information</h5>
+
+                                <div class="form-group mb-3">
+                                    <label for="metaTitle">Meta Title:</label>
+                                    <input type="text" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" id="metaTitle" placeholder=" Meta Title" value="{{ old('meta_title', $seoData->meta_title ?? '') }}" required>
+                                    @error('meta_title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="metaDescription">Meta Description:</label>
+                                    <textarea class="form-control @error('meta_description') is-invalid @enderror" name="meta_description" id="metaDescription" rows="3" placeholder="Meta Description">{{ old('meta_description', $seoData->meta_description ?? '') }}</textarea>
+                                    @error('meta_description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                            </div>
+                        </div><!-- End Meta Information Card -->
+                    </div>
+                </div>
                 <!-- Submit Button -->
                 <div class="row mt-4">
                     <div class="col-lg-12 col-sm-6">
