@@ -3,91 +3,107 @@
     @include('layouts.navebar')
 </nav>
 @include('layouts.sidebar')
-   <main id="main" class="main">
+
+<main id="main" class="main">
     <div class="card">
         <div class="card-body">
             @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-  <script>
-         document.addEventListener('DOMContentLoaded', function () {
+                <div class="alert alert-success alert-dismissible fade show  mt-4" role="alert" id="success-alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
                     function autoDismissAlert(alertId) {
-                     var alertElement = document.getElementById(alertId);
-                     if (alertElement) {
-                     setTimeout(function () {
-                     var bootstrapAlert = new bootstrap.Alert(alertElement);
-                     bootstrapAlert.close();
-                    }, 3000);
-                }
-              }
-          autoDismissAlert('success-alert');
-        autoDismissAlert('error-alert');
-        });
- </script>
+                        var alertElement = document.getElementById(alertId);
+                        if (alertElement) {
+                            setTimeout(function () {
+                                var bootstrapAlert = new bootstrap.Alert(alertElement);
+                                bootstrapAlert.close();
+                            }, 3000);
+                        }
+                    }
 
-            <div class="d-flex justify-content-between">
+                    autoDismissAlert('success-alert');
+                    autoDismissAlert('error-alert');
+                });
+            </script>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="card-title">Blogs</h5>
-                <a href="{{ route('blogForm') }}" class="btn btn-primary   ms-auto" style="height: 50px; padding: 5px 10px; margin-top:10px;" >Add Blog</a>
+                <a href="{{ route('blogForm') }}" class="btn btn-primary">Add Blog</a>
             </div>
 
-          <table id="blogsTable" class="table table-striped table-borderd">
-            <thead>
-              <tr>
-                <th>Title </th>
-                <th>Discription.</th>
-                <th>Image</th>
-                <th>Details</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-                     @foreach ($blogs as $blog)
+            <table id="blogsTable" class="table table-striped table-bordered table-hover">
+                <thead>
                     <tr>
-                        <td>{{ $blog->title }}</td>
-                        <td  id="description-{{ $blog->id }}">{{ $blog->description }}</td>
-                        <td ><img src="{{asset('storage/'.$blog->image) }}" alt="{{ $blog->image }}" height= 60px width=60px ></td>
-                        <td ><a href="{{ route('blogDetails',['id'=>$blog->id]) }}" class="btn"><img src="{{ asset('images/eye.png') }}"  height= 23px width=20px> </a></td>
-                        <td>
-                          <a href="{{ route('blogEdit',['id'=>$blog->id]) }}" class=" " ><img src="{{ asset('images/edit.png') }}"  height= 20px width=20px alt=""></a>
-                          <a href="" class=" "><img src="{{ asset('images/delete.png') }}"  height= 20px width=20px    ></a>
-                        </td>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Details</th>
+                        <th>Action</th>
                     </tr>
-                     @endforeach
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                    @foreach ($blogs as $blog)
+                        <tr>
+                            <td>{{ $blog->title }}</td>
+                            <td id="description-{{ $blog->id }}">{{ $blog->description }}</td>
+                            <td>
+                                <img src="{{ asset('storage/'.$blog->image) }}" alt="{{ $blog->image }}" class="img-thumbnail" style="height: 60px; width: 60px;">
+                            </td>
+                            <td>
+                                <a href="{{ route('blogDetails', ['id' => $blog->id]) }}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('blogEdit', ['id' => $blog->id]) }}" class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
         </div>
-      </div>
+    </div>
+</main>
 
-  </main><!-- End #main -->
-    @include('layouts.footer')
-    <script>
-        $(document).ready(function() {
-            $('#blogsTable').DataTable({
-                // Add DataTable configuration options here (if needed)
-                paging: true,    // Enable pagination
-                searching: true, // Enable searching
-                ordering: true,  // Enable column sorting
-                responsive: true // Make the table responsive
-            });
-        });
-        </script>
+@include('layouts.footer')
 
-    <script>
-        function getFirst8Words(description) {
-            return description.split(/\s+/).slice(0, 5).join(" ");
-        }
-        document.querySelectorAll("td[id^='description-']").forEach(function(td) {
-            let fullDescription = td.textContent.trim();  // Get the full description
-            let shortDescription = getFirst8Words(fullDescription);  // Get the first 8 words
-            td.textContent = shortDescription;  // Set the short description as the content
+<script>
+    $(document).ready(function() {
+        $('#blogsTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true
         });
+    });
+</script>
+
+<script>
+    function getFirst8Words(description) {
+        return description.split(/\s+/).slice(0, 8).join(" ");
+    }
+
+    document.querySelectorAll("td[id^='description-']").forEach(function(td) {
+        let fullDescription = td.textContent.trim();
+        let shortDescription = getFirst8Words(fullDescription);
+        td.textContent = shortDescription;
+    });
+
     </script>

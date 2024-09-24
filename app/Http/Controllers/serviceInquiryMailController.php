@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InquiryMailRequest;
 use App\Mail\QuoteRequestedMail;
 use App\Mail\ServiceInquiryMail;
-use App\Models\Blog;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -41,8 +41,8 @@ public function getQuote(Request $request){
         ]);
 
         // Fetch service name
-        $service = Blog::find($validated['service_id']);
-        $serviceName = $service->description;
+        $service = Service::find($validated['service_id']);
+        $serviceName = $service->title;
 
         // Prepare email data
         $emailData = [
@@ -53,7 +53,7 @@ public function getQuote(Request $request){
         ];
 
         // Send email to admin
-        Mail::to('ashabbar439@gmail.com')->send(new QuoteRequestedMail($emailData));
+        Mail::to('ashabbar411@gmail.com')->send(new QuoteRequestedMail($emailData));
 
         return response()->json(['message' => 'Quote request sent successfully.'], 200);
     }
