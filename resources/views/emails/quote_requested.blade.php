@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
     <title>New Quote Request</title>
 </head>

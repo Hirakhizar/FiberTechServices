@@ -36,7 +36,7 @@ class BlogController extends Controller
             'description' => 'required|string',
             'details' => 'required|string',
             'meta_title' => 'required|string', // Validate meta title
-            'meta_description' => 'required|string',   
+            'meta_description' => 'required|string',
         ]);
     
         // Store the image and get the path

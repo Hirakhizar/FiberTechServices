@@ -61,7 +61,7 @@
                                 <img src="{{ asset('storage/'.$blog->image) }}" alt="{{ $blog->image }}" class="img-thumbnail" style="height: 60px; width: 60px;">
                             </td>
                             <td>
-                                <a href="{{ route('blogDetails', ['id' => $blog->id]) }}" class="btn btn-info btn-sm">
+                                <a href="{{ route('blogDetails', ['id' => $blog->id]) }}" class="btn btn-primary btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
                             </td>
