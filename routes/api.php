@@ -23,10 +23,12 @@ Route::prefix('blogs')->group(function () {
     Route::get('/list', [ServiceDetailApiController::class, 'services']);
     Route::get('/details/{id}', [ServiceDetailApiController::class, 'show']);
     Route::get('/', [ServiceDetailApiController::class, 'index']);
+Route::get('/select',[ServiceDetailApiController::class, 'select']);
+
     });
 
-Route::post('/send-inquiry-email', [serviceInquiryMailController::class, 'sendEmail']);
-Route::post('/request-quote', [serviceInquiryMailController::class, 'getQuote']);
+Route::post('/services-quote', [serviceInquiryMailController::class, 'sendEmail']);
+Route::post('/get-quote', [serviceInquiryMailController::class, 'getQuote']);
 
 
 

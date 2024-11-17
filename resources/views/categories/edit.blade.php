@@ -27,7 +27,7 @@
               <form method="post" action="{{ route('updateCategory',['id'=>$category->id]) }}" enctype="multipart/form-data">
                   @csrf
                 <div class="col-md-12 " style="margin-top: 10px;">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title" class="form-label">Title of category</label>
                     <input type="text" class="form-control" id="title" name="name" value="{{ $category->name}}" required>
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>

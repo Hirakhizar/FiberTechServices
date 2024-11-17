@@ -24,31 +24,37 @@ class ServiceDetailApiController extends Controller
     public function show($id)
     {
         try {
-            $serviceDetails=Service::where('id',$id)->with(['details','keyPoints'])->get();
-            return response($serviceDetails,200);
+            $serviceDetails = Service::where('id', $id)->with(['details', 'keyPoints'])->get();
+            return response($serviceDetails, 200);
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
-           return response()->json([
-            'error' => 'An error occurred while retrieving the services.',
-            'message' => $e->getMessage()
-        ], 500);
+            return response()->json([
+                'error' => 'An error occurred while retrieving the services.',
+                'message' => $e->getMessage()
+            ], 500);
 
-        return response()->json($serviceDetail, 200);
+            return response()->json($serviceDetail, 200);
+        }
     }
-}
 
-    public function services(){
+    public function services()
+    {
 
-    try {
-        $services=Service::get();
-        return response($services,200);
-    } catch (Exception $e) {
-        echo 'Caught exception: ',  $e->getMessage(), "\n";
-       return response()->json([
-        'error' => 'An error occurred while retrieving the services.',
-        'message' => $e->getMessage()
-    ], 500);
-}
+        try {
+            $services = Service::get();
+            return response($services, 200);
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            return response()->json([
+                'error' => 'An error occurred while retrieving the services.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
-}
+    public function select()
+    {
+        $services = Service::select(['id', 'title'])->get();
+        return response($services, 200);
+    }
 }

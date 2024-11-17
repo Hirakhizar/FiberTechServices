@@ -18,6 +18,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::middleware('auth')->group(function () {
 Route::controller(BlogController::class)->group(function () {
     Route::get('/index', 'index')->name('blog');
     Route::get('/show/{id}', 'show')->name('blogDetails');
@@ -25,9 +26,14 @@ Route::controller(BlogController::class)->group(function () {
     Route::post('/addBlog', 'addBlog')->name('addBlog');
     Route::get('/edit-form/{id}', 'editForm')->name('blogEdit');
     Route::post('/updateBlog/{id}', 'updateBlog')->name('updateBlog');
+    Route::get('/blogDelete/{id}', 'blogDelete')->name('blogDelete');
+
 
 });
+});
 
+
+Route::middleware('auth')->group(function () {
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories', 'index')->name('categories');
     // Route::get('/show/{id}', 'show')->name('blogDetails');
@@ -38,7 +44,9 @@ Route::controller(CategoryController::class)->group(function () {
     Route::get('/categoryDelete/{id}', 'destroy')->name('categoryDelete');
 
 });
+});
 
+Route::middleware('auth')->group(function () {
 Route::prefix('service')->group(function () {
 Route::controller(ServiceController::class)->group(function () {
     Route::get('/index', 'index')->name('showServices');
@@ -48,7 +56,7 @@ Route::controller(ServiceController::class)->group(function () {
     Route::get('/edit/{id}', 'edit')->name('editService');
     Route::post('/updateService/{id}', 'update')->name('updateService');
     Route::get('/service-delete/{id}', 'delete')->name('deleteService');
-
+});
 });
 });
 

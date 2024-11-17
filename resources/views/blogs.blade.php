@@ -69,7 +69,7 @@
                                 <a href="{{ route('blogEdit', ['id' => $blog->id]) }}" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="" class="btn btn-danger btn-sm">
+                                <a href="{{ route('blogDelete', ['id' => $blog->id]) }}" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
